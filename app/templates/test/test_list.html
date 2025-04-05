@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test List</title>
+</head>
+<body>
+    <h1>Test List</h1>
+    <a href="{{ url_for('test_routes.create_test') }}">Create New Test</a>
+    <ul>
+        {% for test in tests %}
+        <li>
+            {{ test.name }} 
+            <a href="{{ url_for('test_routes.edit_test', test_id=test.id) }}">Edit</a> | 
+            <a href="{{ url_for('test_routes.delete_test', test_id=test.id) }}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

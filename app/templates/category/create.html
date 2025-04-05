@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Create Category</title></head>
+<body>
+    <h1>Create New Category</h1>
+    <form method="POST">
+        <label for="name">Category Name:</label>
+        <input type="text" name="name" required>
+        <button type="submit">Add</button>
+    </form>
+    <a href="{{ url_for('category_routes.list_categories') }}">Back to List</a>
+</body>
+</html>

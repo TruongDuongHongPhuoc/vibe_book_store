@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Category</title></head>
+<body>
+    <h1>Edit Category</h1>
+    <form method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ category.name }}" required>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{{ url_for('category_routes.list_categories') }}">Back to list</a>
+</body>
+</html>

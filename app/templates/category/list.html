@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Categories</title></head>
+<body>
+    <h1>Category List</h1>
+    <a href="{{ url_for('category_routes.create_category') }}">Add New Category</a>
+    <ul>
+        {% for cat in categories %}
+            <li>
+                {{ cat.name }}
+                [<a href="{{ url_for('category_routes.edit_category', id=cat.id) }}">Edit</a>]
+                [<a href="{{ url_for('category_routes.delete_category', id=cat.id) }}" onclick="return confirm('Delete this category?');">Delete</a>]
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
