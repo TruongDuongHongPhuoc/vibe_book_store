@@ -45,7 +45,11 @@
           <li>File upload for book content (only specific file types)</li>
         </ul>
       </li>
-      <li><strong>Category Management (CRUD)</strong></li>
+      <li><strong>Category Management (CRUD)</strong>
+        <ul>
+          <li>Sort A->Z and Z -> A </li>
+        </ul>
+      </li>
       <li><strong>Cart System</strong>
         <ul>
           <li>Add to Cart</li>
