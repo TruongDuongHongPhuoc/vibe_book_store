@@ -6,7 +6,7 @@
     <h2>📦 Required Libraries</h2>
     <ul>
       <li><strong>Python</strong></li>
-      <li>Flask (RESTful API)</li>
+      <li>Flask API</li>
       <li>SQLAlchemy (ORM)</li>
     </ul>
   </div>
