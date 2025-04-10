@@ -73,7 +73,7 @@
         <ul>
           <li>Header</li>
           <li>Footer</li>
-          <li>Side Navigation</li>
+          <li>Side Navigation With Jquery UI menu</li>
         </ul>
       </li>
     </ul>
