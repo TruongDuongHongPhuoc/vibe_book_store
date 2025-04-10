@@ -80,7 +80,7 @@
   </div>
   <br>
   <h1>API Specification</h1>
-
+<p>note: the application only contains post and get due to litmited of HTML Form</p>
 <p><strong>Base URL:</strong> http://localhost:5000</p>
 
 <h2>🛡️ Auth </h1>
