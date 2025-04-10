@@ -19,3 +19,8 @@ class CommentRepository:
         if comment:
             db.session.delete(comment)
             db.session.commit()
+    @staticmethod
+    def delete_comments_by_book(book_id):
+        comments = Comment.query.filter_by(book_id=book_id).all()
+        for comment in comments:
+            db.session.delete(comment)

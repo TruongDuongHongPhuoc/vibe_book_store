@@ -70,7 +70,8 @@ def login():
                 flash('Login successful!', 'success')
                 currentReader.id = reader.id
                 currentReader.role = reader.role
-                return redirect(url_for('book_routes.list_books'))  # Change this to your homepage or dashboard
+                # return redirect(url_for('book_routes.list_books'))
+                return render_template('Homepage/home.html')  # Change this to your homepage or dashboard
             else:
                 flash('Incorrect password.', 'danger')
         else:

@@ -1,13 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from app.repositories import book_repo
 from app.repositories.book_repo import BookRepository
-from app.models import book_model, category_model, reader_model, comment_model
+from app.models import book_model, category_model, reader_model, comment_model, cart_model
+from app.models.cart_model import Cart
 from app.models.comment_model import Comment
 from app.models.reader_model import Reader
 from app.models.category_model import Category
 from datetime import datetime
 from app.repositories.comment_repo import CommentRepository
 import os
+from app import db
 from werkzeug.utils import secure_filename
 
 book_routes = Blueprint('book_routes', __name__)
@@ -141,6 +143,10 @@ def edit_book(book_id):
 # Delete a book
 @book_routes.route('/books/delete/<int:book_id>', methods=['GET'])
 def delete_book(book_id):
+    cart_items = Cart.query.filter_by(book_id=book_id).all()
+    for item in cart_items:
+        db.session.delete(item)
+    CommentRepository.delete_comments_by_book(book_id)  # Delete comments associated with the book
     BookRepository.delete_book(book_id)
     return redirect(url_for('book_routes.list_books'))
 
