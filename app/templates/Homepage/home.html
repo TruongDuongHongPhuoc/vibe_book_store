@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Book Store{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-close" onclick="toggleMenu()">✖</div>
+        <h2>Menu</h2>
+        <a href="/">Home</a>
+        <a href="/books">Books</a>
+        <a href="/cart">Cart</a>
+        <a href="/profile">Profile</a>
+        <a href="/categories">About</a>
+        <a href="/readers">Readers</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <button class="burger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="header-center">
+            <h1>Book Store</h1>
+        </div>
+
+        <div class="header-right">
+            <a href="/cart" class="cart-icon">🛒</a>
+        </div>
+    </header>
+
+    <!-- Main Body Content (Book Grid) -->
+    <main>
+
+        <div class="search-section">
+          
+
+            <div class="categories-scroll">
+                {% for category in categories %}
+                <div class="category-cell">{{ category.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="book-container" class="book-grid">
+            <!-- Books will be loaded here -->
+        </div>
+
+        <div style="text-align: center;">
+            <button id="load-more-btn">Load More</button>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer style="background-color: #1a1a1a; color: #fff; padding: 40px 20px; text-align: center;">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <h2 style="margin-bottom: 20px;">📚 Book Store</h2>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 30px;">
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="/" style="color: #ccc; text-decoration: none;">Home</a></li>
+                        <li><a href="/books" style="color: #ccc; text-decoration: none;">Books</a></li>
+                        <li><a href="/cart" style="color: #ccc; text-decoration: none;">Cart</a></li>
+                        <li><a href="/profile" style="color: #ccc; text-decoration: none;">Profile</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4>About</h4>
+                    <p style="max-width: 250px; color: #ccc;">
+                        Welcome to Book Store – your one-stop destination for discovering, renting, and purchasing your
+                        favorite books online.
+                    </p>
+                </div>
+
+                <div>
+                    <h4>Contact</h4>
+                    <p style="color: #ccc;">📧 support@bookstore.com</p>
+                    <p style="color: #ccc;">📞 +84 123 456 789</p>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid #444; padding-top: 20px; font-size: 14px;">
+                <p>&copy; 2025 Book Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        
+  // Event delegation for dynamically added "Add to Cart" buttons
+document.addEventListener('click', function (event) {
+    if (event.target && event.target.classList.contains('add-cart-btn')) {
+        const bookId = event.target.getAttribute('data-book-id');
+        addToCart(bookId);
+    }
+});
+
+
+        // Function to handle adding book to cart
+        function addToCart(bookId) {
+            // Assuming you have a cart API endpoint
+            fetch('/api/cart/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    book_id: bookId,
+                    quantity: 1,  // you can add a quantity selector if needed
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Book added to cart!');
+                        updateCartUI(data.cartCount);  // Update cart UI (e.g., cart icon count)
+                    } else {
+                        alert('Failed to add book to cart.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error adding book to cart.');
+                });
+        }
+
+        // Function to update the cart UI (e.g., cart icon or cart count)
+        function updateCartUI(cartCount) {
+            const cartIcon = document.getElementById('cart-icon');
+            if (cartIcon) {
+                cartIcon.textContent = `Cart (${cartCount})`;
+            }
+        }
+
+
+
+
+        let offset = 0;
+        const limit = 6;
+
+        function createBookCard(book) {
+            return `
+        <div class="book-card">
+            <img src="${book.cover_image_path}" alt="${book.title}" class="book-image">
+            <div class="book-overlay">
+                <p class="book-author">👤 ${book.author}</p>
+                <div class="book-actions">
+                    <a href="/books/${book.id}" class="view-btn">👁️ View</a>
+                    <button class="add-cart-btn" data-book-id="${book.id}">🛒 Add</button>
+                </div>
+                <div class="price-bubble">$${book.full_pay_price}</div>
+            </div>
+            <h3 class="book-title">${book.title}</h3>
+            <p class="book-description">${book.description}...</p>
+        </div>
+    `;
+        }
+
+        async function loadBooks() {
+            const response = await fetch(`/books/load?offset=${offset}&limit=${limit}`);
+            const books = await response.json();
+
+            if (books.length > 0) {
+                offset += limit;
+                const container = document.getElementById('book-container');
+                books.forEach(book => {
+                    container.insertAdjacentHTML('beforeend', createBookCard(book));
+                });
+            } else {
+                document.getElementById('load-more-btn').style.display = 'none';
+            }
+        }
+
+
+        // Listen for scroll
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const bodyHeight = document.body.offsetHeight;
+
+            if (scrollTop + windowHeight >= bodyHeight - 100) {
+                loadBooks();
+            }
+        });
+
+        // Load first batch on page load
+        loadBooks();
+
+
+
+    </script>
+
+</body>
+
+</html>

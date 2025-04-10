@@ -1,0 +1,665 @@
+/* Basic resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+}
+
+.header-left, .header-center, .header-right {
+    display: flex;
+    align-items: center;
+}
+
+.burger-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.cart-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Book Grid */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    gap: 20px;
+    padding: 20px;
+}
+
+.book-card {
+    position: relative;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.book-card:hover {
+    transform: scale(1.05);
+}
+
+.book-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.book-title {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.book-description {
+    padding: 0 10px 10px;
+    font-size: 14px;
+    color: #555;
+}
+.book-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 20, 0.8);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.book-card:hover .book-overlay {
+    opacity: 1;
+}
+
+.book-author {
+    font-size: 1rem;              /* bigger text */
+    color: #fff;                  /* white text */
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* better visibility */
+}
+
+
+.book-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.view-btn,
+.add-cart-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.view-btn:hover,
+.add-cart-btn:hover {
+    background-color: #388e3c;
+}
+
+/* Price Bubble */
+.price-bubble {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff9800;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Header Style */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1a1a1a;
+    color: white;
+    padding: 15px 20px;
+    position: relative;
+    z-index: 1000;
+}
+
+.header-center h1 {
+    font-size: 24px;
+}
+
+.burger-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 28px;
+    width: 35px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.burger-icon span {
+    height: 4px;
+    background: white;
+    border-radius: 2px;
+    width: 100%;
+}
+
+.cart-icon {
+    font-size: 28px;
+    text-decoration: none;
+    color: white;
+}
+
+/* Sidebar Style */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #2a2a2a;
+    color: white;
+    padding: 30px 20px;
+    transition: 0.3s ease-in-out;
+    z-index: 2000;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    margin: 10px 0;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.sidebar a:hover {
+    color: white;
+}
+
+.sidebar-close {
+    font-size: 20px;
+    text-align: right;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.search-section {
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+}
+
+.search-bar-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.search-input {
+    padding: 10px 15px;
+    font-size: 16px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    text-align: center;
+}
+
+.category-cell {
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-cell:hover {
+    background-color: #d0d0d0;
+}
+
+.categories-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 10px;
+    scrollbar-width: thin; /* For Firefox */
+}
+
+.categories-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.categories-scroll::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.category-cell {
+    flex: 0 0 auto;
+    padding: 10px 16px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.category-cell:hover {
+    background-color: #d0d0d0;
+}
+
+
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .book-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+}
+
+
+.load-more-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.load-more-btn:hover {
+    background-color: #555;
+}
+#load-more-btn {
+    display: none;
+}
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+  
+  /* Main Container for Book Detail */
+  .book-detail-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  
+ 
+  
+  /* Book Information Section */
+  .book-info {
+    margin-bottom: 30px;
+  }
+  
+  .book-description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .book-info p {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .book-info strong {
+    color: #000;
+  }
+  
+  /* Add to Cart Button */
+  .add-to-cart-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .add-to-cart-btn:focus {
+    outline: none;
+  }
+  
+  /* Comment Section */
+  .comments-container {
+    margin-top: 40px;
+  }
+  
+  .comment-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .comment-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment-item strong {
+    color: #333;
+  }
+  
+  .comment-item form {
+    display: inline;
+    margin-top: 10px;
+  }
+  
+  .delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e43e3e;
+  }
+  
+  .comment-form {
+    margin-top: 30px;
+  }
+  
+  .comment-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    resize: none;
+    margin-bottom: 10px;
+  }
+  
+  .comment-form button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+  
+  .comment-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .book-detail-container {
+      padding: 15px;
+    }
+  
+    .book-title {
+      font-size: 2em;
+    }
+  
+    .book-image {
+      width: 200px;
+    }
+  
+    .book-info p {
+      font-size: 1.1em;
+    }
+  
+    .add-to-cart-btn {
+      font-size: 1em;
+      padding: 8px 16px;
+    }
+  
+    .comment-form textarea {
+      height: 80px;
+    }
+  
+    .comment-form button {
+      font-size: 1em;
+      padding: 8px 16px;
+    }
+  }
+  /* ================================
+   Cart Page Styles
+   ================================ */
+.cart-page h1 {
+  text-align: center;
+  margin-top: 30px;
+  color: #333;
+}
+
+.cart-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 30px auto;
+  max-width: 1000px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cart-page thead {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+.cart-page th,
+.cart-page td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-page td input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+.cart-page tr:hover {
+  background-color: #fafafa;
+}
+
+.cart-page button[type="submit"] {
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.cart-page button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.cart-page button[formaction*="remove_from_cart"] {
+  background-color: #e74c3c;
+}
+
+.cart-page button[formaction*="remove_from_cart"]:hover {
+  background-color: #c0392b;
+}
+
+.cart-page form button:last-of-type {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cart-page table,
+  .cart-page thead,
+  .cart-page tbody,
+  .cart-page th,
+  .cart-page td,
+  .cart-page tr {
+      display: block;
+  }
+
+  .cart-page tr {
+      margin-bottom: 15px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 5px;
+      padding: 10px;
+      background-color: white;
+  }
+
+  .cart-page td {
+      text-align: right;
+      position: relative;
+      padding-left: 50%;
+  }
+
+  .cart-page td::before {
+      position: absolute;
+      left: 10px;
+      width: 45%;
+      white-space: nowrap;
+      font-weight: bold;
+      color: #555;
+  }
+
+  .cart-page td:nth-of-type(1)::before { content: "Select"; }
+  .cart-page td:nth-of-type(2)::before { content: "Book"; }
+  .cart-page td:nth-of-type(3)::before { content: "Quantity"; }
+  .cart-page td:nth-of-type(4)::before { content: "Unit Price"; }
+  .cart-page td:nth-of-type(5)::before { content: "Total"; }
+  .cart-page td:nth-of-type(6)::before { content: "Rent/Buy"; }
+  .cart-page td:nth-of-type(7)::before { content: "Action"; }
+}
+    /* Style specifically for cart page dropdown */
+    .cart-page select.rent-purchase-select {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #f9f9f9;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+  }
+  
+  /* Hover effect */
+  .cart-page select.rent-purchase-select:hover {
+      border-color: #999;
+      background-color: #f1f1f1;
+  }
+  
+  /* Rent option color (optional) */
+  .cart-page select.rent-purchase-select option[value="rent"] {
+      color: #007bff; /* Blue for rent */
+  }
+  
+  /* Purchase option color (optional) */
+  .cart-page select.rent-purchase-select option[value="purchase"] {
+      color: #28a745; /* Green for purchase */
+  }
+  /* Style for checkout button */
+.cart-page checkout-btn {
+  background-color: #28a745; /* Green when enabled */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Disabled state */
+.cart-page .checkout-btn:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.6;
+}

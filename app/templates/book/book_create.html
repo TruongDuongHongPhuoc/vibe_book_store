@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Book</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px;
+      background-color: #2c3e50;
+      color: white;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #2c3e50;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #34495e;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea,
+    .form-group select,
+    .form-group input[type="number"],
+    .form-group input[type="date"] {
+      width: 100%;
+    }
+
+    .form-group input[type="number"] {
+      width: calc(50% - 10px);
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .form-group input[type="number"]:last-child {
+      margin-right: 0;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-group select {
+      width: 100%;
+    }
+
+    /* Drag-and-drop area */
+    .drag-area {
+      border: 2px dashed #2c3e50;
+      padding: 20px;
+      text-align: center;
+      background-color: #ecf0f1;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #2c3e50;
+      cursor: pointer;
+    }
+
+    .drag-area.dragging {
+      background-color: #bdc3c7;
+    }
+
+    .drag-area img {
+      max-width: 100px;
+      margin-top: 10px;
+    }
+
+    .form-group a {
+      color: #2c3e50;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .form-group a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Create a New Book</h1>
+  <div class="container">
+    <div style="margin-bottom: 20px;">
+      <a href="/books" class="return-books-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+        ⬅️ Back to Books
+      </a>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" name="title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea name="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="category_id">Category:</label>
+        <select name="category_id">
+          {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="author_id">Author:</label>
+        <select name="author_id">
+          {% for reader in readers %}
+          <option value="{{ reader.id }}">{{ reader.full_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" required>
+      </div>
+
+      <div class="form-group">
+        <label for="fullpay_price">Full Pay Price:</label>
+        <input type="number" name="fullpay_price" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label for="rent_price">Rent Price:</label>
+        <input type="number" name="rent_price" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label for="published">Published Date:</label>
+        <input type="date" name="published" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cover_image">Book Cover Image:</label>
+        <div class="drag-area" id="drag-area">
+          <span>Drag and drop an image here or click to select one</span>
+          <input type="file" name="cover_image" accept="image/*" id="cover_image" style="display:none;">
+          <img id="preview-image" src="" width="100" height="100" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="book_file">Book File (PDF, ePub):</label>
+        <input type="file" name="book_file" accept="application/pdf, application/epub+zip">
+      </div>
+
+      <div class="form-group" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+        <button type="submit" style="padding: 8px 16px;">Create Book</button>
+        <a href="/books" class="return-books-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+          ⬅️ Back to Books
+        </a>
+      </div>
+
+     
+    </form>
+  </div>
+
+  <script>
+    // Drag and drop functionality for the cover image
+    const dragArea = document.getElementById('drag-area');
+    const fileInput = document.getElementById('cover_image');
+    const previewImage = document.getElementById('preview-image');
+
+    dragArea.addEventListener('click', () => fileInput.click());
+
+    dragArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dragArea.classList.add('dragging');
+    });
+
+    dragArea.addEventListener('dragleave', () => {
+      dragArea.classList.remove('dragging');
+    });
+
+    dragArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dragArea.classList.remove('dragging');
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          previewImage.src = reader.result;
+          fileInput.files = e.dataTransfer.files;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+
+</html>

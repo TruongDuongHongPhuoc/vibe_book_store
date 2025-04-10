@@ -20,8 +20,10 @@ class ReaderRepository:
     def update_reader(self, reader_id, data):
         reader = self.model.query.get(reader_id)
         if reader:
+            # Only update the fields that are provided in the `data` dictionary
             for key, value in data.items():
-                setattr(reader, key, value)
+                if hasattr(reader, key):
+                    setattr(reader, key, value)
             db.session.commit()
         return reader
 
@@ -31,3 +33,6 @@ class ReaderRepository:
             db.session.delete(reader)
             db.session.commit()
         return reader
+    
+    def getpaginated_readers(self, page, per_page):
+        return Reader.query.paginate(page=page, per_page=per_page, error_out=False)

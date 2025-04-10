@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Details - {{ book.title }}{% endblock %}
+
+{% block content %}
+ 
+  <div class="book-detail-container">
+
+    <div style="margin-bottom: 20px;">
+        <a href="/" class="return-home-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+          ⬅️ Return Home
+        </a>
+      </div>
+    <h1 class="book-title">{{ book.title }}</h1>
+    <img src="{{ url_for('static', filename=book.cover_image_path) }}" alt="{{ book.title }} Cover" class="book-image">
+    
+    <div class="book-info">
+        <p class="book-description">{{ book.description }}</p>
+        <p><strong>category:</strong> {{ book.category.name }}</p>
+        <p><strong>Author:</strong> {{ book.author.full_name }}</p>
+        <p><strong>Price:</strong> ${{ book.full_pay_price }}</p>
+    </div>
+
+    <button type="button" class="add-to-cart-btn" onclick="addToCart('{{ book.id }}')">Add to Cart</button>
+    
+
+    <div class="comments-container">
+        <h2>Comments</h2>
+        <ul class="comment-list">
+            {% for comment in comments %}
+                <li class="comment-item">
+                    <strong>{{ comment.reader.full_name }}</strong> ({{ comment.created_at.strftime('%Y-%m-%d') }}):<br>
+                    {{ comment.content }}
+                    <form method="POST" action="{{ url_for('book_routes.delete_comment', comment_id=comment.id) }}" style="display:inline;">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="comment-form">
+            <form method="POST">
+                <input type="hidden" name="reader_id" value="1" />
+                <!-- Update with session/user -->
+                <textarea name="content" placeholder="Write a comment..." required></textarea><br />
+                <button type="submit">Add Comment</button>
+            </form>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    function addToCart(bookId) {
+        fetch('/api/cart/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                book_id: bookId,
+                quantity: 1
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Book added to cart!');
+                // Optionally update cart icon count:
+                // document.getElementById('cart-icon').textContent = `Cart (${data.cartCount})`;
+            } else {
+                alert(data.message || 'Failed to add to cart.');
+            }
+        })
+        .catch(error => {
+            console.error('Error adding to cart:', error);
+            alert('Error adding to cart.');
+        });
+    }
+  </script>
+
+{% endblock %}

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+          }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+         /* Basic styling for modal */
+         .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin: 0;
+          }
+    </style>
+</head>
+<body>
+    <h1>Update Reader: {{ reader.full_name }}</h1>
+    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+        <a href="/readers" class="return-readers-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+          ⬅️ Back to Readers
+        </a>
+      </div>
+    <!-- Role Selection -->
+    <form id="roleForm">
+        <label for="role">Role:</label>
+        <select name="role" id="role" required>
+            <option value="1" {% if reader.role == 1 %} selected {% endif %}>User</option>
+            <option value="2" {% if reader.role == 2 %} selected {% endif %}>Writer</option>
+            <option value="3" {% if reader.role == 3 %} selected {% endif %}>Admin</option>
+        </select><br><br>
+
+        <!-- Button to trigger modal -->
+        <button type="button" id="openModalBtn">Update Reader</button>
+    </form>
+    
+      
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirm Action</h2>
+            <p><strong>Your confirmation key is: <span id="displayKey">{{ random_key }}</span></strong></p>
+            <p>Please enter the key to confirm your update:</p>
+
+            <!-- Form inside the modal -->
+            <form id="updateForm" method="POST" onsubmit="return confirmKey()">
+                <!-- Confirmation Key Input -->
+                <input type="text" id="confirmationKey" placeholder="Enter confirmation key" required><br><br>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Store the random key sent from the backend
+        var randomKey = "{{ random_key }}";
+
+        // Open Modal
+        var modal = document.getElementById("confirmationModal");
+        var btn = document.getElementById("openModalBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Close Modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Function to validate the confirmation key
+        function confirmKey() {
+            var enteredKey = document.getElementById("confirmationKey").value;
+
+            // Check if the entered key matches the random key
+            if (enteredKey === randomKey) {
+                // Set the role in the form before submission
+                var role = document.getElementById("role").value;
+                var roleInput = document.createElement("input");
+                roleInput.type = "hidden";
+                roleInput.name = "role";
+                roleInput.value = role;
+                document.getElementById("updateForm").appendChild(roleInput);
+
+                return true; // Allow form submission
+            } else {
+                alert("Invalid key! Please try again.");
+                return false; // Prevent form submission
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+    <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="{{ url_for('cart_routes.view_cart') }}" class="return-cart-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+          ⬅️ Return to Cart
+        </a>
+      </div>
+      
+    <h1>✅ Checkout</h1>
+
+    {% if cart_items %}
+    <ul class="checkout-list">
+        {% for item in cart_items %}
+        <li class="checkout-item">
+            <div class="item-info">
+                <p><strong>{{ item.book.title }}</strong> by {{ item.book.author.full_name }}</p>
+                <p>Price: ${{ item.price_per_unit }} | Quantity: {{ item.quantity }}</p>
+            </div>
+            <a href="{{ url_for('static', filename=item.book.file) }}" target="_blank" class="download-btn">
+                📥 Download
+            </a>
+
+            <!-- <a href="{{ url_for('static', filename='uploads/books/Nguyen-Phuoc-Loc-CV-ENG.pdf') }}" download>Download Test</a> -->
+
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+
+<!-- jQuery-based sidebar toggler -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.burger-icon').click(function () {
+            $('#sidebar').toggleClass('active');
+        });
+
+        $('.sidebar-close').click(function () {
+            $('#sidebar').removeClass('active');
+        });
+    });
+</script>
+
+<style>
+    .checkout-container {
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .checkout-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .checkout-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f9f9f9;
+        margin-bottom: 15px;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .download-btn {
+        background: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .download-btn:hover {
+        background: #45a049;
+    }
+</style>
+{% endblock %}

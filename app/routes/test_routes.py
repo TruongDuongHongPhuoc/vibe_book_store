@@ -40,3 +40,4 @@ def edit_test(test_id):
 def delete_test(test_id):
     test_repo.delete_test(test_id)
     return redirect(url_for('test_routes.list_tests'))
+

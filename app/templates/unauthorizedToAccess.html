@@ -1,0 +1,12 @@
+<!-- templates/unauthorizedToAccess.html -->
+{% extends "base.html" %}
+
+{% block title %}Unauthorized{% endblock %}
+
+{% block content %}
+<div class="unauthorized-page" style="text-align:center; padding: 40px;">
+    <h1 style="font-size: 48px; color: #ff4d4d;">🚫 Unauthorized</h1>
+    <p style="font-size: 20px; color: #555;">You do not have permission to access this page.</p>
+    <a href="/" style="text-decoration: none; font-size: 18px; color: #007bff;">⬅️ Return Home</a>
+</div>
+{% endblock %}

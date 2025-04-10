@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reader</title>
+</head>
+<body>
+    <h1>Update Reader: {{ reader.full_name }}</h1>
+    <form method="POST">
+        <label for="role">Role:</label>
+        <select name="role">
+            <option value="1" {% if reader.role == 1 %} selected {% endif %}>User</option>
+            <option value="2" {% if reader.role == 2 %} selected {% endif %}>Writer</option>
+            <option value="3" {% if reader.role == 3 %} selected {% endif %}>Admin</option>
+        </select><br><br>
+        
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

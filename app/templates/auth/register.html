@@ -1,0 +1,359 @@
+<style>
+    /* Basic reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .register-container {
+        background-color: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        margin: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    label {
+        font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+        color: #555;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .password-container {
+        position: relative;
+    }
+
+    .show-hide-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    .footer-links {
+        text-align: center;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    .footer-links a {
+        text-decoration: none;
+        color: #007BFF;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: #0056b3;
+    }
+
+    .pagination-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .pagination-buttons button {
+        width: 48%;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 600px) {
+        .register-container {
+            padding: 30px;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+    }
+
+    label[for="male"], label[for="female"] {
+        display: inline-block;
+        margin-right: 15px;
+    }
+    
+    
+    /* Make the gender container a flex container */
+    .gender-container {
+        display: flex;
+        gap: 20px; /* Adds space between the radio buttons */
+        align-items: center;
+    }
+
+    input[type="radio"] {
+        margin-right: 5px;
+    }
+    /* Style for the container holding the checkboxes */
+.checkbox-container {
+    display: flex;
+    gap: 20px; /* Adds some space between checkboxes */
+    align-items: center;
+}
+
+/* Optional: Style the checkboxes for better alignment */
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* Adds a small margin after the checkbox */
+}
+
+/* Optional: Style the labels */    
+.checkbox-container label {
+    font-size: 14px; /* Adjust size of text */
+}
+
+</style>
+
+<div class="register-container">
+    <h1>Register</h1>
+    <form method="POST" id="registration-form">
+        <!-- Step 1 -->
+        <div class="form-step" id="step-1">
+            <label for="full_name">Full Name:</label>
+            <input type="text" name="full_name" placeholder="Enter your full name" id="full_name" required><br>
+
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" name="birthdate" id="birthdate" required><br>
+
+            <label for="gmail">Gmail:</label>
+            <input type="email" name="gmail" placeholder="Enter your email" id="gmail" required><br>
+
+            <label>Gender:</label>
+            <div class="gender-container">
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+                <label for="female">Female</label>
+            </div><br>
+
+            
+        </div>
+
+        <!-- Step 2 -->
+        <div class="form-step" id="step-2" style="display:none;">
+            <label for="nation">Nation:</label>
+            <select name="nation" required>
+                <option value="Vietnam">Vietnam</option>
+                <option value="Japan">Japan</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="China">China</option>
+            </select><br>
+
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" placeholder="Enter your phone number"  id="phone" required><br>
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Choose a username" id="username" required><br>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="form-step" id="step-3" style="display:none;">
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <span class="show-hide-btn" onclick="togglePasswordVisibility('password')">👁️</span>
+            </div><br>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <div class="password-container">
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                <span class="show-hide-btn" onclick="togglePasswordVisibility('confirm_password')">👁️</span>
+            </div><br>
+              <!-- Terms and Conditions Checkboxes -->
+            <div class="checkbox-container">
+                <div>
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I accept the terms and conditions</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="company_rules" required>
+                    <label for="company_rules">I agree to follow the company rules</label>
+                </div>
+            </div>
+            <button type="submit">Register</button>
+        </div>
+
+        <div class="pagination-buttons">
+            <button type="button" id="prev-btn" onclick="prevStep()" style="display:none;">Previous</button>
+            <button type="button" id="next-btn" onclick="nextStep()">Next</button>
+        </div>
+    </form>
+
+    <div class="footer-links">
+        <p>Already have an account? <a href="{{ url_for('auth_routes.login') }}">Login here</a></p>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    function showStep(step) {
+        for (let i = 1; i <= totalSteps; i++) {
+            document.getElementById(`step-${i}`).style.display = (i === step) ? 'block' : 'none';
+        }
+
+        document.getElementById('prev-btn').style.display = (step === 1) ? 'none' : 'inline-block';
+        document.getElementById('next-btn').textContent = (step === totalSteps) ? 'Submit' : 'Next';
+    }
+
+    function nextStep() {
+        const currentStep = document.querySelector('.form-step:not([style*="display: none"])');
+        const nextStep = currentStep.nextElementSibling;
+
+        // Validate Step 1
+        if (currentStep.id === 'step-1') {
+            const fullName = document.getElementById('full_name').value;
+            const birthdate = document.getElementById('birthdate').value;
+            const email = document.getElementById('gmail').value;
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            
+            // Validate full name (no special chars or numbers)
+            if (!/^[A-Za-z\s]+$/.test(fullName)) {
+                alert('Full name must only contain letters and spaces.');
+                return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            // Check if gender is selected
+            if (!genderSelected) {
+                alert('Please select your gender.');
+                return;
+            }
+
+            // Check if birthdate is not null
+            if (!birthdate) {
+                alert('Please enter your birthdate.');
+                return;
+            }
+        }
+
+        // Validate Step 2
+        if (currentStep.id === 'step-2') {
+            const phone = document.getElementById('phone').value;
+            const username = document.getElementById('username').value;
+
+            // Validate phone (exactly 9 digits)
+            const phoneRegex = /^\d{9}$/;
+            if (!phoneRegex.test(phone)) {
+                alert('Phone number must contain exactly 9 digits.');
+                return;
+            }
+
+            // Validate username (non-empty)
+            if (!username) {
+                alert('Username cannot be empty.');
+                return;
+            }
+        }
+
+        // Step 3 Validation (Checkboxes)
+        if (currentStep.id === 'step-3') {
+            const termsChecked = document.getElementById('terms').checked;
+            const companyRulesChecked = document.getElementById('company_rules').checked;
+
+            // If both checkboxes are not checked, show an error
+            if (!termsChecked || !companyRulesChecked) {
+                document.getElementById('terms-error').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('terms-error').style.display = 'none';
+            }
+        }
+
+        // If no validation errors, proceed to the next step
+        currentStep.style.display = 'none';
+        nextStep.style.display = 'block';
+
+        // Hide or show the "Previous" button
+        document.getElementById('prev-btn').style.display = 'block';
+
+        // If we are on the last step, hide the "Next" button and show "Submit"
+        if (!nextStep.nextElementSibling) {
+            document.getElementById('next-btn').style.display = 'none';
+        }
+    }
+
+    function prevStep() {
+        // Get the current step
+        const currentStep = document.querySelector('.form-step:not([style*="display: none"])');
+        const prevStep = currentStep.previousElementSibling;
+
+        // Hide current step and show previous step
+        currentStep.style.display = 'none';
+        prevStep.style.display = 'block';
+
+        // If we're at the first step, hide the "Previous" button
+        if (!prevStep.previousElementSibling) {
+            document.getElementById('prev-btn').style.display = 'none';
+        }
+
+        // Show the "Next" button again
+        document.getElementById('next-btn').style.display = 'block';
+    }   
+
+    // Initialize the first step
+    showStep(currentStep);
+
+    // Toggle password visibility
+    function togglePasswordVisibility(fieldId) {
+        var field = document.getElementById(fieldId);
+        var fieldType = field.type;
+        if (fieldType === "password") {
+            field.type = "text";
+        } else {
+            field.type = "password";
+        }
+    }
+</script>

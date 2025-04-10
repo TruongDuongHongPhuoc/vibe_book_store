@@ -1,0 +1,119 @@
+  /* Basic reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.register-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+label {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: block;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.show-hide-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.footer-links {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: #007BFF;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #0056b3;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .register-container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+}
+/* Style for the container holding the checkboxes */
+.checkbox-container {
+    display: flex;
+    gap: 20px; /* Adds some space between checkboxes */
+    align-items: center;
+}
+
+/* Optional: Style the checkboxes for better alignment */
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* Adds a small margin after the checkbox */
+}
+
+/* Optional: Style the labels */
+.checkbox-container label {
+    font-size: 14px; /* Adjust size of text */
+}

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Details{% endblock %}
+
+{% block content %}
+
+
+<div class="cart-page">
+    <div style="margin-bottom: 20px;">
+        <a href="/" class="return-home-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+          ⬅️ Return Home
+        </a>
+      </div>
+    <h1>Your Cart</h1>
+
+    <form method="POST" action="{{ url_for('cart_routes.checkout') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Book</th>
+                    <th>Quantity</th>
+                    <th>Price per Unit</th>
+                    <th>Total Price</th>
+                    <th>Rent/Buy</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td><input type="checkbox" name="selected_cart_items" value="{{ item.id }}" class="checkbox"></td>
+                    <td>{{ item.book.title }}</td>
+                    <td>
+                        <input type="number" class="quantity-input" data-item-id="{{ item.id }}"
+                            value="{{ item.quantity }}" min="1">
+                    </td>
+                    <td class="item-total" data-unit-price="{{ item.price_per_unit }}">
+                        {{ item.total_price }}
+                    </td>
+                    <td>{{ item.total_price }}</td>
+                    <td>
+                        <select class="rent-purchase-select" data-item-id="{{ item.id }}">
+                            <option value="rent" {% if item.rent_or_purchase=='rent' %}selected{% endif %}>Rent</option>
+                            <option value="purchase" {% if item.rent_or_purchase=='purchase' %}selected{% endif %}>
+                                Purchase</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit"
+                            formaction="{{ url_for('cart_routes.remove_from_cart', cart_id=item.id) }}">Remove</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div style="text-align: right; margin-right: 20px; font-size: 18px;">
+            Total of selected: $<span id="selected-total">0.00</span>
+        </div>
+
+        <br>
+        <button type="submit" class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
+
+    </form>
+</div>
+
+<script>
+
+    const rentSelects = document.querySelectorAll('.rent-purchase-select');
+
+    rentSelects.forEach((select) => {
+        select.addEventListener('change', () => {
+            updateItemTotal(select);
+            updateSelectedTotal();
+        });
+    });
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll('.checkbox');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const totalDisplay = document.getElementById('selected-total');
+
+        function updateItemTotal(inputOrSelect) {
+            const row = inputOrSelect.closest('tr');
+            const unitPrice = parseFloat(row.querySelector('.item-total').dataset.unitPrice);
+            const quantity = parseInt(row.querySelector('.quantity-input').value);
+            const rentPurchase = row.querySelector('.rent-purchase-select').value;
+
+            let multiplier = 1;
+            if (rentPurchase === "rent") {
+                multiplier = 0.5; // For example: rent costs half of purchase
+            }
+
+            const itemTotalCell = row.querySelector('.item-total');
+            const newTotal = (unitPrice * quantity * multiplier).toFixed(2);
+            itemTotalCell.textContent = newTotal;
+        }
+
+
+        function updateSelectedTotal() {
+            let total = 0.0;
+            let hasChecked = false;
+
+            checkboxes.forEach((cb) => {
+                if (cb.checked) {
+                    const row = cb.closest('tr');
+                    const priceCell = row.querySelector('.item-total');
+                    total += parseFloat(priceCell.textContent);
+                    hasChecked = true;
+                }
+            });
+
+            totalDisplay.textContent = total.toFixed(2);
+            checkoutBtn.disabled = !hasChecked;
+        }
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', updateSelectedTotal);
+        });
+
+        quantityInputs.forEach((input) => {
+            input.addEventListener('change', () => {
+                updateItemTotal(input);
+                updateSelectedTotal();
+            });
+        });
+
+        // Initial total (in case something is pre-checked)
+        updateSelectedTotal();
+    });
+</script>
+
+{% endblock %}

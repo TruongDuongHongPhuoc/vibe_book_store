@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Book Store{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-close" onclick="toggleMenu()">✖</div>
+      <h2>Menu</h2>
+      <a href="/">Home</a>
+      <a href="/books">Books</a>
+      <a href="/cart">Cart</a>
+      <a href="/profile">Profile</a>
+      <a href="/categories">categories</a>
+      <a href="/readers">Readers</a>
+    </div>
+
+    <!-- Header -->
+    <header>
+      <div class="header-left">
+        <button class="burger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="header-center">
+        <h1>Book Store</h1>
+      </div>
+
+      <div class="header-right">
+        <a href="/cart" class="cart-icon">🛒</a>
+      </div>
+    </header>
+
+    <!-- Main Body Content -->
+    <!-- Main Content Block -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <!-- Footer Section -->
+    <footer
+      style="
+        background-color: #1a1a1a;
+        color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+      "
+    >
+      <div style="max-width: 1000px; margin: 0 auto">
+        <h2 style="margin-bottom: 20px">📚 Book Store</h2>
+
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+          "
+        >
+          <div>
+            <h4>Quick Links</h4>
+            <ul style="list-style: none; padding: 0">
+              <li>
+                <a href="/" style="color: #ccc; text-decoration: none">Home</a>
+              </li>
+              <li>
+                <a href="/books" style="color: #ccc; text-decoration: none"
+                  >Books</a
+                >
+              </li>
+              <li>
+                <a href="/cart" style="color: #ccc; text-decoration: none"
+                  >Cart</a
+                >
+              </li>
+              <li>
+                <a href="/profile" style="color: #ccc; text-decoration: none"
+                  >Profile</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4>About</h4>
+            <p style="max-width: 250px; color: #ccc">
+              Welcome to Book Store – your one-stop destination for discovering,
+              renting, and purchasing your favorite books online.
+            </p>
+          </div>
+
+          <div>
+            <h4>Contact</h4>
+            <p style="color: #ccc">📧 support@bookstore.com</p>
+            <p style="color: #ccc">📞 +84 123 456 789</p>
+          </div>
+        </div>
+
+        <div
+          style="border-top: 1px solid #444; padding-top: 20px; font-size: 14px"
+        >
+          <p>&copy; 2025 Book Store. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+<script>
+    function toggleMenu() {
+        document.getElementById('sidebar').classList.toggle('active');
+    }
+</script>

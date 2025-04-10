@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            margin: 0;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        td a {
+            margin-right: 10px;
+            color: #e74c3c;
+        }
+
+        td a:last-child {
+            margin-right: 0;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .create-btn {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .create-btn:hover {
+            background-color: #34495e;
+        }
+    </style>
+</head>
+<body>
+   
+    <h1>Books</h1>
+    
+    <div class="container">
+        <div style="margin-bottom: 20px;">
+            <a href="/" class="return-home-btn" style="text-decoration: none; color: #333; font-size: 18px;">
+              ⬅️ Return Home
+            </a>
+          </div>
+        <a href="{{ url_for('book_routes.create_book') }}" class="create-btn">Create New Book</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Author</th>
+                    <th>Published</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                    <tr>
+                        <td>{{ book.title }}</td>
+                        <td>{{ book.description }}</td>
+                        <td>{{ book.category.name }}</td>
+                        <td>{{ book.author.full_name }}</td>
+                        <td>{{ book.published }}</td>
+                        <td class="actions">
+                            <a href="{{ url_for('book_routes.edit_book', book_id=book.id) }}">Edit</a> |
+                            <a href="{{ url_for('book_routes.delete_book', book_id=book.id) }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

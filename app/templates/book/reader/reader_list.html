@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reader List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<style>
+    /* Add this CSS to your stylesheet (style.css) */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    text-align: left;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    cursor: pointer;
+    background-color: #f2f2f2;
+}
+
+th:hover {
+    background-color: #ddd;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    margin: 0 4px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    background-color: #f2f2f2;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+</style>
+<body>
+    <h1>Reader List</h1>
+    <a href="{{ url_for('reader_routes.create_reader') }}">Create New Reader</a>
+
+    <!-- Table -->
+    <table>
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">ID</th>
+                <th onclick="sortTable(1)">Full Name</th>
+                <th onclick="sortTable(2)">Email</th>
+                <th onclick="sortTable(3)">Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reader in readers %}
+                <tr>
+                    <td>{{ reader.id }}</td>
+                    <td>{{ reader.full_name }}</td>
+                    <td>{{ reader.gmail }}</td>
+                    <td>{{ reader.username }}</td>
+                    <td>{{ 'Admin' if reader.role == 3 else 'Writer' if reader.role == 2 else 'User' }}</td>
+                    <td>
+                        <a href="{{ url_for('reader_routes.update_reader', reader_id=reader.id) }}">Edit</a> |
+                        <a href="{{ url_for('reader_routes.delete_reader', reader_id=reader.id) }}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if pagination.has_prev %}
+            <a href="{{ url_for('reader_routes.reader_list', page=pagination.prev_num) }}">Previous</a>
+        {% endif %}
+        <span class="active">{{ pagination.page }}</span>
+        {% if pagination.has_next %}
+            <a href="{{ url_for('reader_routes.reader_list', page=pagination.next_num) }}">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>
+<script>
+    // Function to sort the table by column
+    function sortTable(columnIndex) {
+        let table = document.querySelector("table");
+        let rows = Array.from(table.rows).slice(1);  // Skip the header row
+        let isNumeric = !isNaN(rows[0].cells[columnIndex].innerText.trim());
+
+        rows.sort(function(rowA, rowB) {
+            let cellA = rowA.cells[columnIndex].innerText.trim();
+            let cellB = rowB.cells[columnIndex].innerText.trim();
+            
+            if (isNumeric) {
+                return parseFloat(cellA) - parseFloat(cellB);
+            } else {
+                return cellA.localeCompare(cellB);
+            }
+        });
+
+        // Append sorted rows back to the table
+        rows.forEach(function(row) {
+            table.appendChild(row);
+        });
+    }
+</script>
