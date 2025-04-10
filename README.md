@@ -174,6 +174,7 @@
 </ul>
 
 <h2>📕 Book</h2>
+<p><strong>Base URL:</strong> http://localhost:5000</p>
 <ul>
   <li><strong>GET</strong> /books</li>
   <ul>
@@ -240,6 +241,7 @@
 </ul>
 
 <h2>👤 Reader</h2>
+<p><strong>Base URL:</strong> http://localhost:5000</p>
 <ul>
   <li><strong>GET</strong> /readers</li>
   <ul>
@@ -288,6 +290,7 @@
   </ul>
 </ul>
 <h2>🛒 Cart</h2>
+<p><strong>Base URL:</strong> http://localhost:5000</p>
 <ul>
   <li><strong>POST</strong> /api/cart/add</li>
   <ul>
