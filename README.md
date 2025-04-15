@@ -10,7 +10,7 @@ Feel free to explore for detailed insights!
   <h1>📘 Bookstore Web App</h1>
 
   <div class="section">
-    <h2>📦 Required Libraries</h2>
+    <h2>📦 Required to operate</h2>
     <ul>
       <li><strong>Python</strong></li>
       <li>Flask API</li>
