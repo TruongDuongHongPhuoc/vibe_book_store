@@ -138,7 +138,7 @@ Feel free to explore for detailed insights!
     <li>Response: Flash success or error, redirect to <code>/login</code></li>
   </ul>
 
-  <li><strong>POST</strong> /logout</li>
+  <li><strong>GET</strong> /logout</li>
 <ul>
   <li>Description: Logs out the current reader</li>
   <li>Response: Flash success message, redirect to <code>/login</code></li>
