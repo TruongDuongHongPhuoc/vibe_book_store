@@ -267,19 +267,6 @@ Feel free to explore for detailed insights!
     <li>Response: Renders <code>reader/reader_list.html</code> with readers and pagination</li>
   </ul>
 
-  <li><strong>GET</strong> /readers/create</li>
-  <ul>
-    <li>Description: Show form to create a new reader</li>
-    <li>Response: Renders <code>reader/reader_create.html</code></li>
-  </ul>
-
-  <li><strong>POST</strong> /readers/create</li>
-  <ul>
-    <li>Description: Create a new reader</li>
-    <li>Request: Form data including full_name, birthdate, gmail, gender, nation, phone, username, password, role</li>
-    <li>Response: Redirects to <code>/readers</code></li>
-  </ul>
-
   <li><strong>GET</strong> /readers/edit/&lt;reader_id&gt;</li>
   <ul>
     <li>Description: Show form to update a reader's role</li>
